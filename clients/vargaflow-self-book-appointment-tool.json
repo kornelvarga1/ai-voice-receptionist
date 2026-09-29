@@ -1,0 +1,35 @@
+{
+  "type": "custom",
+  "name": "book_appointment",
+  "description": "Call this once the caller has picked one of the slots you offered from check_availability, and you've confirmed their name, email, and phone. Actually books the call on Kornél's real calendar and triggers his automatic SMS + email confirmation. Use the exact start_iso/end_iso from the slot they chose — never invent your own times here.",
+  "url": "https://zfmchywjmgykmlhjihls.supabase.co/functions/v1/book-call",
+  "method": "POST",
+  "timeout_ms": 10000,
+  "talk_while_waiting": true,
+  "headers": {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+    "User-Agent": "RetellAI-VoiceAgent/1.0"
+  },
+  "parameters": {
+    "type": "object",
+    "properties": {
+      "start_iso": {
+        "type": "string",
+        "description": "The exact start_iso value from the slot the caller chose in check_availability's response"
+      },
+      "end_iso": {
+        "type": "string",
+        "description": "The exact end_iso value from the slot the caller chose in check_availability's response"
+      },
+      "full_name": { "type": "string", "description": "Caller's full name, confirmed by readback" },
+      "email": { "type": "string", "description": "Caller's email, confirmed by letter-by-letter readback" },
+      "phone": { "type": "string", "description": "The real caller's phone number in E.164 format (e.g. +1 followed by 10 digits). This must be either the resolved {{caller_number}} value or a number the caller actually stated and you confirmed digit-by-digit — never a placeholder, example, or invented number." },
+      "timezone": {
+        "type": "string",
+        "description": "The caller's IANA timezone, e.g. America/New_York, America/Chicago, America/Denver, America/Los_Angeles — inferred from the timezone they told you"
+      }
+    },
+    "required": ["start_iso", "end_iso", "full_name", "email", "phone", "timezone"]
+  }
+}

@@ -1,0 +1,37 @@
+{
+  "type": "custom",
+  "name": "notify_contractor",
+  "description": "Call this right before ending the call in two cases: (1) after you confirm a booking, or (2) whenever you tell the caller someone will follow up with them (unknown question, safety issue, complaint, anything outside your script). This is how the business actually finds out what happened on the call.",
+  "url": "__URL__?business_id=__BUSINESS_ID__&k=__WEBHOOK_SECRET__",
+  "method": "POST",
+  "timeout_ms": 10000,
+  "talk_while_waiting": true,
+  "headers": {
+    "x-webhook-secret": "__WEBHOOK_SECRET__",
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+    "User-Agent": "RetellAI-VoiceAgent/1.0"
+  },
+  "parameters": {
+    "type": "object",
+    "properties": {
+      "type": {
+        "type": "string",
+        "enum": ["booking", "handoff"],
+        "description": "'booking' if you just confirmed an appointment, 'handoff' if the caller needs a human follow-up"
+      },
+      "customer_name": { "type": "string" },
+      "customer_phone": { "type": "string" },
+      "customer_address": { "type": "string" },
+      "summary": {
+        "type": "string",
+        "description": "One or two sentence summary — for a booking, include the exact day/time booked; for a handoff, what needs follow-up"
+      },
+      "urgent": {
+        "type": "boolean",
+        "description": "true if this is time-sensitive or safety related"
+      }
+    },
+    "required": ["type", "customer_name", "customer_phone", "summary"]
+  }
+}

@@ -1,0 +1,36 @@
+{
+  "type": "custom",
+  "name": "book_appointment",
+  "description": "Call this once the caller has picked one of the two slots you offered from check_availability. Creates the real appointment on the business's calendar. Use the exact start_iso/end_iso from the slot they chose — never invent your own times here.",
+  "url": "__URL__?business_id=__BUSINESS_ID__&k=__WEBHOOK_SECRET__",
+  "method": "POST",
+  "timeout_ms": 10000,
+  "talk_while_waiting": true,
+  "headers": {
+    "x-webhook-secret": "__WEBHOOK_SECRET__",
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+    "User-Agent": "RetellAI-VoiceAgent/1.0"
+  },
+  "parameters": {
+    "type": "object",
+    "properties": {
+      "start_iso": {
+        "type": "string",
+        "description": "The exact start_iso value from the slot the caller chose in check_availability's response"
+      },
+      "end_iso": {
+        "type": "string",
+        "description": "The exact end_iso value from the slot the caller chose in check_availability's response"
+      },
+      "customer_name": { "type": "string" },
+      "customer_phone": { "type": "string" },
+      "customer_address": { "type": "string" },
+      "summary": {
+        "type": "string",
+        "description": "One or two sentence summary of the job for the technician"
+      }
+    },
+    "required": ["start_iso", "end_iso", "customer_name", "customer_phone", "customer_address", "summary"]
+  }
+}

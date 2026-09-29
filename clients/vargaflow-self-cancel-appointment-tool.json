@@ -1,0 +1,25 @@
+{
+  "type": "custom",
+  "name": "cancel_appointment",
+  "description": "Call this to cancel an existing booking with Kornél — for a booking made earlier in THIS call or a previous call. Looks up their soonest upcoming booking by phone number and cancels it.",
+  "url": "https://zfmchywjmgykmlhjihls.supabase.co/functions/v1/manage-booking",
+  "method": "POST",
+  "timeout_ms": 10000,
+  "talk_while_waiting": true,
+  "headers": {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+    "User-Agent": "RetellAI-VoiceAgent/1.0"
+  },
+  "parameters": {
+    "type": "object",
+    "properties": {
+      "action": { "type": "string", "enum": ["cancel"], "description": "Always the literal value 'cancel'" },
+      "phone": {
+        "type": "string",
+        "description": "The real caller's phone number in E.164 format — must be either the resolved caller_number value or a number the caller stated and you confirmed digit-by-digit. Never a placeholder or invented number. This is how their existing booking gets found, so it must be accurate."
+      }
+    },
+    "required": ["action", "phone"]
+  }
+}

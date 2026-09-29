@@ -1,0 +1,7 @@
+{
+  "supabaseFunctionsUrl": "https://<project-ref>.supabase.co/functions/v1",
+  "checkAvailabilityUrl": "https://<project-ref>.supabase.co/functions/v1/voice-check-availability",
+  "bookAppointmentUrl": "https://<project-ref>.supabase.co/functions/v1/voice-book-appointment",
+  "sendConfirmationUrl": "https://<project-ref>.supabase.co/functions/v1/voice-send-confirmation",
+  "webhookSecret": "<VOICE_NOTIFY_WEBHOOK_SECRET, same value as the Supabase secret>"
+}

@@ -1,0 +1,31 @@
+{
+  "type": "custom",
+  "name": "check_availability",
+  "description": "Call this when you're ready to offer the caller appointment times, and call it AGAIN whenever the caller asks for a different day or a different part of the day. Returns real open slots from the business's calendar. Always call this instead of guessing or making up times. If the caller wants something other than what you offered, do not tell them nothing else exists — call this again with their preference first.",
+  "url": "__URL__?business_id=__BUSINESS_ID__&k=__WEBHOOK_SECRET__",
+  "method": "POST",
+  "timeout_ms": 10000,
+  "talk_while_waiting": true,
+  "headers": {
+    "x-webhook-secret": "__WEBHOOK_SECRET__",
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+    "User-Agent": "RetellAI-VoiceAgent/1.0"
+  },
+  "parameters": {
+    "type": "object",
+    "properties": {
+      "time_of_day": {
+        "type": "string",
+        "enum": ["morning", "afternoon", "evening", "any"],
+        "description": "Which part of the day the caller wants. Use 'any' unless they actually expressed a preference."
+      },
+      "day_preference": {
+        "type": "string",
+        "enum": ["today", "tomorrow", "this_week", "any"],
+        "description": "Which day the caller wants. Use 'any' unless they actually expressed a preference — 'any' searches the next week and returns the soonest options."
+      }
+    },
+    "required": []
+  }
+}

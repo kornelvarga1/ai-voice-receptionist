@@ -1,0 +1,19 @@
+{
+  "type": "custom",
+  "name": "check_availability",
+  "description": "Call this when you're ready to offer the caller times to book a call with Kornél. Returns real open slots, soonest first. Always call this instead of guessing or making up times — only mention the first 2-3 to the caller.",
+  "url": "https://zfmchywjmgykmlhjihls.supabase.co/functions/v1/get-availability",
+  "method": "POST",
+  "timeout_ms": 10000,
+  "talk_while_waiting": true,
+  "headers": {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+    "User-Agent": "RetellAI-VoiceAgent/1.0"
+  },
+  "parameters": {
+    "type": "object",
+    "properties": {},
+    "required": []
+  }
+}

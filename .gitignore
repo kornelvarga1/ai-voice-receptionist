@@ -1,0 +1,13 @@
+# Holds VOICE_NOTIFY_WEBHOOK_SECRET in cleartext — the value that authenticates
+# every tool callback from Retell into the Supabase edge functions. Never commit
+# it. See notify-config.example.json for the shape.
+scripts/notify-config.json
+
+node_modules/
+.env
+.env.*
+*.log
+.DS_Store
+
+# Real client configs stay private
+clients/client-*

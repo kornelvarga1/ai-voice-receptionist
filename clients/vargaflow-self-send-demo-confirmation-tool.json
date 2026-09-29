@@ -1,0 +1,33 @@
+{
+  "type": "custom",
+  "name": "send_demo_confirmation",
+  "description": "Call this only while in the Ryan/Summit Roofing demo persona, after the caller has agreed to a fictional inspection time and opted in to a confirmation. Sends a REAL SMS (and email if given) confirming that fictional appointment — this is real and lands on the caller's actual phone, unlike book_appointment which must never be called in this persona.",
+  "url": "https://zfmchywjmgykmlhjihls.supabase.co/functions/v1/demo-send-confirmation",
+  "method": "POST",
+  "timeout_ms": 10000,
+  "talk_while_waiting": true,
+  "headers": {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+    "User-Agent": "RetellAI-VoiceAgent/1.0"
+  },
+  "parameters": {
+    "type": "object",
+    "properties": {
+      "full_name": { "type": "string", "description": "Caller's full name, confirmed by readback" },
+      "phone": {
+        "type": "string",
+        "description": "The real caller's phone number in E.164 format. Must be either the resolved {{caller_number}} value or a number the caller actually stated and you confirmed digit-by-digit — never a placeholder or invented number."
+      },
+      "email": {
+        "type": "string",
+        "description": "Caller's email if they gave one, confirmed by letter-by-letter readback. Omit this field entirely if they didn't want to give an email."
+      },
+      "appointment_label": {
+        "type": "string",
+        "description": "Short natural description of the fictional appointment, e.g. 'free roof inspection this Thursday at 10am'"
+      }
+    },
+    "required": ["full_name", "phone", "appointment_label"]
+  }
+}

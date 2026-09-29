@@ -1,0 +1,27 @@
+{
+  "type": "custom",
+  "name": "send_confirmation_email",
+  "description": "Call this only if the caller explicitly says yes when you ask whether they'd like a confirmation email, after the appointment is already booked. Never call this unprompted.",
+  "url": "__URL__?business_id=__BUSINESS_ID__&k=__WEBHOOK_SECRET__",
+  "method": "POST",
+  "timeout_ms": 10000,
+  "talk_while_waiting": true,
+  "headers": {
+    "x-webhook-secret": "__WEBHOOK_SECRET__",
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+    "User-Agent": "RetellAI-VoiceAgent/1.0"
+  },
+  "parameters": {
+    "type": "object",
+    "properties": {
+      "customer_email": { "type": "string" },
+      "customer_name": { "type": "string" },
+      "confirmation_details": {
+        "type": "string",
+        "description": "The exact day/time and service address that was booked, in a sentence or two"
+      }
+    },
+    "required": ["customer_email", "customer_name", "confirmation_details"]
+  }
+}

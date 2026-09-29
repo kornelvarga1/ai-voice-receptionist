@@ -1,0 +1,28 @@
+{
+  "type": "custom",
+  "name": "reschedule_appointment",
+  "description": "Call this to move an existing booking with Kornél to a new time — for a booking made earlier in THIS call or a previous call. Looks up their soonest upcoming booking by phone number and moves it. Always call check_availability first to get a real new slot before calling this.",
+  "url": "https://zfmchywjmgykmlhjihls.supabase.co/functions/v1/manage-booking",
+  "method": "POST",
+  "timeout_ms": 10000,
+  "talk_while_waiting": true,
+  "headers": {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+    "User-Agent": "RetellAI-VoiceAgent/1.0"
+  },
+  "parameters": {
+    "type": "object",
+    "properties": {
+      "action": { "type": "string", "enum": ["reschedule"], "description": "Always the literal value 'reschedule'" },
+      "phone": {
+        "type": "string",
+        "description": "The real caller's phone number in E.164 format — must be either the resolved caller_number value or a number the caller stated and you confirmed digit-by-digit. Never a placeholder or invented number. This is how their existing booking gets found, so it must be accurate."
+      },
+      "start_iso": { "type": "string", "description": "The exact start_iso value from the new slot the caller chose in check_availability's response" },
+      "end_iso": { "type": "string", "description": "The exact end_iso value from the new slot the caller chose in check_availability's response" },
+      "timezone": { "type": "string", "description": "The caller's IANA timezone, e.g. America/New_York, America/Chicago, America/Denver, America/Los_Angeles" }
+    },
+    "required": ["action", "phone", "start_iso", "end_iso", "timezone"]
+  }
+}
